@@ -16,6 +16,18 @@ function stopGame() {
   hud = null;
 }
 
+function pause(g: Game, opts: GameOptions) {
+  if (document.querySelector('.overlay.pause')) return;
+  g.paused = true;
+  showPause({
+    soundOn: sound.enabled,
+    onSound: (on) => (sound.enabled = on),
+    onResume: () => (g.paused = false),
+    onRestart: () => startGame({ ...opts, seed: opts.seed + 1 }),
+    onQuit: () => { stopGame(); showMenu(startGame); },
+  });
+}
+
 function startGame(opts: GameOptions) {
   stopGame();
   sound.unlock();
@@ -23,15 +35,7 @@ function startGame(opts: GameOptions) {
   const mini = document.getElementById('minimap') as HTMLCanvasElement;
   game = new Game(canvas, mini, opts, sound);
   const g = game;
-  hud = new Hud(g, document.getElementById('app')!, () => {
-    g.paused = true;
-    showPause({
-      soundOn: sound.enabled,
-      onSound: (on) => (sound.enabled = on),
-      onResume: () => (g.paused = false),
-      onQuit: () => { stopGame(); showMenu(startGame); },
-    });
-  });
+  hud = new Hud(g, document.getElementById('app')!, () => pause(g, opts));
   g.onChange = () => hud?.update();
   g.onEnd = (summary) =>
     showEnd(summary, () => startGame({ ...opts, seed: opts.seed + 1 }), () => { stopGame(); showMenu(startGame); });
@@ -41,14 +45,7 @@ function startGame(opts: GameOptions) {
 // Pause when the tab is hidden so a phone in a pocket doesn't lose the match.
 document.addEventListener('visibilitychange', () => {
   if (document.hidden && game && game.playerTeam !== null && !game.paused) {
-    const g = game;
-    g.paused = true;
-    showPause({
-      soundOn: sound.enabled,
-      onSound: (on) => (sound.enabled = on),
-      onResume: () => (g.paused = false),
-      onQuit: () => { stopGame(); showMenu(startGame); },
-    });
+    pause(game, game.opts);
   }
 });
 
