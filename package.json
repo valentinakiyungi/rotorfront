@@ -1,0 +1,22 @@
+{
+  "name": "rotorfront",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A mobile-first web RTS: drones and robot tanks fight over crystal fields.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "match": "tsx tools/match.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0"
+  }
+}
