@@ -179,6 +179,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
   min-height: 48px; padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel-solid);
   font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center;
 }
+.mute-btn {
+  position: absolute; z-index: 2; top: calc(12px + var(--safe-t)); left: max(12px, env(safe-area-inset-left, 0px));
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel);
+  font-size: 20px; display: grid; place-items: center; backdrop-filter: blur(6px);
+}
 .credits { text-align: center; color: var(--muted); font-size: 12px; opacity: 0.8; padding-top: 4px; }
 button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 

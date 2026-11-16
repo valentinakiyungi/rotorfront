@@ -3,9 +3,10 @@ import './ui/style.css';
 import { Sound } from './game/audio';
 import { Game, type GameOptions } from './game/game';
 import { Hud } from './ui/hud';
-import { showEnd, showMenu, showPause } from './ui/menu';
+import { setMenuSound, showEnd, showMenu, showPause } from './ui/menu';
 
 const sound = new Sound();
+setMenuSound(sound);
 let game: Game | null = null;
 let hud: Hud | null = null;
 
@@ -40,6 +41,7 @@ function startGame(opts: GameOptions) {
   g.onEnd = (summary) =>
     showEnd(summary, () => startGame({ ...opts, seed: opts.seed + 1 }), () => { stopGame(); showMenu(startGame); });
   g.start();
+  sound.ui('start');
 }
 
 // Pause when the tab is hidden so a phone in a pocket doesn't lose the match.

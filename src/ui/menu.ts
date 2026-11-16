@@ -2,7 +2,12 @@
 import { DIFFICULTIES, MAPS, PERSONALITIES, UNITS, type Difficulty, type Personality, type Team, type UnitKind } from '../sim';
 import type { GameOptions, Summary } from '../game/game';
 import { TEAM } from '../game/palette';
+import type { Sound } from '../game/audio';
 import { renderTerrain, unitIcon } from '../game/render';
+
+let sfx: Sound | null = null;
+/** Gives the menus a Sound to click with. */
+export function setMenuSound(s: Sound): void { sfx = s; }
 
 const PREFS_KEY = 'rotorfront.prefs';
 
@@ -24,6 +29,8 @@ function savePrefs(p: GameOptions) {
 function overlay(cls: string): HTMLElement {
   const o = document.createElement('div');
   o.className = `overlay ${cls}`;
+  // Every button in a menu clicks.
+  o.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('button')) sfx?.ui('click'); });
   document.getElementById('app')!.append(o);
   return o;
 }
@@ -173,8 +180,19 @@ export function showMenu(onStart: (o: GameOptions) => void): void {
   foot.className = 'credits';
   foot.textContent = 'Every sound synthesised live · Inspired by Battle Drones';
 
+  // Sound toggle, top-left like a phone game.
+  const mute = document.createElement('button');
+  mute.className = 'mute-btn';
+  const muteLabel = () => {
+    const on = sfx?.enabled ?? true;
+    mute.textContent = on ? '🔊' : '🔇';
+    mute.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+  };
+  muteLabel();
+  mute.onclick = () => { if (sfx) sfx.enabled = !sfx.enabled; muteLabel(); };
+
   screen.append(head, carWrap, mapBlurb, enemy, enemyBlurb, diff, play, tiles, foot);
-  o.append(screen);
+  o.append(mute, screen);
   requestAnimationFrame(() => {
     if (car.scrollWidth > car.clientWidth + 4) car.querySelector<HTMLElement>('[aria-checked=true]')?.scrollIntoView({ block: 'nearest', inline: 'center' });
     chevrons();
