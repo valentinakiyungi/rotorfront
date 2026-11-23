@@ -52,7 +52,7 @@ Drones and robot tanks fight over crystal fields. Mine, build, out-think the ene
 
 **Buildings:** HQ · Foundry (tanks) · Aerie (drones) · Depot (forward drop-off) · Turret (hits ground and air).
 
-**Maps:** Proving Field (small and open) · Twin Fords (a river with three crossings) · Badlands (mesas and choke points). Every map is a perfect mirror, so neither side starts ahead.
+**Maps:** Proving Field (small and open) · Twin Fords (a river with three crossings) · Badlands (mesas and choke points). And every map is like a perfect mirror, so neither side starts ahead.
 
 ## Controls
 
