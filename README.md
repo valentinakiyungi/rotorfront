@@ -36,7 +36,7 @@ Drones and robot tanks fight over crystal fields. Mine, build, out-think the ene
 - **Veterans.** Units that score kills earn ★ ranks and hit harder.
 - **Watch mode.** Put two AI commanders against each other at up to 4× speed.
 - **After-action report.** An army-strength timeline and the stats that decided the match.
-- **Lightweight.** Zero runtime dependencies, every sound synthesised live, installable to your home screen.
+- **Lightweight.** Zero runtime dependencies; every sound synthesised live, installable to your home screen.
 
 ## Units
 
@@ -85,7 +85,7 @@ Open the `Local` link to play. The `Network` link works on a phone connected to 
 |---|---|
 | `npm run dev` | Start the dev server with hot reload |
 | `npm test` | Run the simulation tests |
-| `npm run build` | Typecheck and build into `dist/` |
+| `npm run build` | Type-check and build into `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm run match` | Run headless AI-vs-AI matches on every map, for balance testing |
 
@@ -103,9 +103,9 @@ flowchart LR
     Sim -->|world state| HUD
 ```
 
-- **`src/sim/`** is pure TypeScript with no browser code. It runs at a fixed 10 ticks per second with a seeded random number generator, so the same seed and the same commands always produce the same match. A match can be replayed from its command log alone, and the tests check this.
-- **`src/game/`** holds the Canvas renderer (smoothed between ticks), the camera, gesture recognition, effects and synthesised audio.
-- **`src/ui/`** holds the HUD, menus and the after-action report.
+- **` src/sim/`** is pure TypeScript with no browser code. It runs at a fixed 10 ticks per second with a seeded random number generator, so the same seed and the same commands always produce the same match. A match can be replayed from its command log alone, and the tests check this.
+- **` src/game/`** holds the Canvas renderer (smoothed between ticks), the camera, gesture recognition, effects, and synthesised audio.
+- **` src/ui/`** holds the HUD, menus, and the after-action report.
 - **`tests/`** covers the simulation; **`tools/match.ts`** runs AI-vs-AI games in bulk.
 
 All balance numbers live in [`src/sim/balance.ts`](src/sim/balance.ts). The full design and roadmap are in [DESIGN.md](DESIGN.md).
@@ -118,10 +118,6 @@ All balance numbers live in [`src/sim/balance.ts`](src/sim/balance.ts). The full
 - [ ] An arena where AI models play each other
 - [ ] Online multiplayer
 - [ ] Offline play
-
-## Credits
-
-Inspired by [Battle Drones](https://github.com/simonw/battledrones) by Simon Willison. All code, units and art in this repository are original.
 
 ## License
 
